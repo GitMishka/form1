@@ -3,7 +3,6 @@ import datetime
 
 app = Flask(__name__)
 
-# HTML Template
 HTML_TEMPLATE = '''<!DOCTYPE html>
 <html>
 <head>
