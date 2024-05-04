@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weekly Schedule Entry</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light grey background */
+            color: #333; /* Dark grey text */
+        }
+        .form-select {
+            width: auto; /* Shrink the dropdown size */
+        }
+        .input-group-text, .form-control, .form-select {
+            font-size: 0.8rem; /* Smaller font size for form elements */
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
@@ -12,24 +24,24 @@
         <form action="/submit_schedule" method="post" class="mb-3">
             <div class="mb-3">
                 <label for="fname" class="form-label">First Name:</label>
-                <input type="text" class="form-control" id="fname" name="fname" required>
+                <input type="text" class="form-control" id="fname" name="fname">
             </div>
             <div class="mb-3">
                 <label for="lname" class="form-label">Last Name:</label>
-                <input type="text" class="form-control" id="lname" name="lname" required>
+                <input type="text" class="form-control" id="lname" name="lname">
             </div>
-            <!-- Schedule fields for each day with AM/PM dropdowns -->
+            <!-- Schedule fields for each day with optional inputs -->
             {% for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] %}
             <div class="mb-3">
                 <label class="form-label">{{day}}:</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="start-{{day}}" name="start-{{day}}" placeholder="Start" required>
+                    <input type="text" class="form-control" id="start-{{day}}" name="start-{{day}}" placeholder="Start (e.g., 8)">
                     <select class="form-select" id="ampm-start-{{day}}" name="ampm-start-{{day}}">
                         <option value="AM">AM</option>
                         <option value="PM">PM</option>
                     </select>
                     <span class="input-group-text">to</span>
-                    <input type="text" class="form-control" id="end-{{day}}" name="end-{{day}}" placeholder="End" required>
+                    <input type="text" class="form-control" id="end-{{day}}" name="end-{{day}}" placeholder="End (e.g., 5)">
                     <select class="form-select" id="ampm-end-{{day}}" name="ampm-end-{{day}}">
                         <option value="AM">AM</option>
                         <option value="PM">PM</option>
@@ -40,7 +52,5 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
