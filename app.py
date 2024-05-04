@@ -11,7 +11,9 @@ def submit_schedule():
     with open('schedules.txt', 'a') as file:
         file.write(f"{request.form['fname']} {request.form['lname']}")
         for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]:
-            file.write(f" - {day}: {request.form[f'start-{day}']} to {request.form[f'end-{day}']}")
+            start_time = f"{request.form[f'start-{day}']} {request.form[f'ampm-start-{day}']}"
+            end_time = f"{request.form[f'end-{day}']} {request.form[f'ampm-end-{day}']}"
+            file.write(f" - {day}: {start_time} to {end_time}")
         file.write("\n")
     return 'Schedule submitted successfully!'
 

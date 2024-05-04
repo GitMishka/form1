@@ -18,14 +18,22 @@
                 <label for="lname" class="form-label">Last Name:</label>
                 <input type="text" class="form-control" id="lname" name="lname" required>
             </div>
-            <!-- Schedule fields for each day with start and end times -->
+            <!-- Schedule fields for each day with AM/PM dropdowns -->
             {% for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] %}
             <div class="mb-3">
                 <label class="form-label">{{day}}:</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="start-{{day}}" name="start-{{day}}" placeholder="Start (e.g., 8 AM)" required>
+                    <input type="text" class="form-control" id="start-{{day}}" name="start-{{day}}" placeholder="Start" required>
+                    <select class="form-select" id="ampm-start-{{day}}" name="ampm-start-{{day}}">
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
                     <span class="input-group-text">to</span>
-                    <input type="text" class="form-control" id="end-{{day}}" name="end-{{day}}" placeholder="End (e.g., 5 PM)" required>
+                    <input type="text" class="form-control" id="end-{{day}}" name="end-{{day}}" placeholder="End" required>
+                    <select class="form-select" id="ampm-end-{{day}}" name="ampm-end-{{day}}">
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
                 </div>
             </div>
             {% endfor %}
