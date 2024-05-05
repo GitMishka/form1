@@ -2,7 +2,7 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 # More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
 
-name: Build and deploy Python app to Azure Web App - virtualscan
+name: Build and deploy Python app to Azure Web App - schedular
 
 on:
   push:
@@ -20,7 +20,7 @@ jobs:
       - name: Set up Python version
         uses: actions/setup-python@v1
         with:
-          python-version: '3.11'
+          python-version: '3.8'
 
       - name: Create and start virtual environment
         run: |
@@ -65,14 +65,14 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_C3A5C2F088E74C94872333A28B47C866 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_1F0D00043611492EA32DDF057DE6075F }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_B73BC4C1486145EE8C7F52DD5C52313F }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_54D262D6EC744B4EAF0DFB701B96E847 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_0540BB6B72C9414FB8C74A00E1D3BCF1 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_08ACE126F06A48C0ADC5E0BB1CC943F8 }}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
-          app-name: 'virtualscan'
+          app-name: 'schedular'
           slot-name: 'Production'
           
