@@ -33,7 +33,11 @@ def submit_schedule():
             
             file.write(f" - {day}: {schedule}")
         file.write("\n")
-    return 'Schedule submitted successfully!'
+    return render_template('confirmation.html')
 
+@app.route('/finalize')
+def finalize_schedule():
+    # Handle finalization logic here
+    return render_template('finalize.html', message="Your schedule has been confirmed.")
 if __name__ == "__main__":
     app.run(debug=True)
