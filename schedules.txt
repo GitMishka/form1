@@ -11,3 +11,12 @@ Misha Test6
  - Saturday: N/A to N/A
  - Sunday: N/A to N/A
 
+Misha test8
+ - Monday: 8:00 to 12:00
+ - Tuesday: 9:00 to 13:00
+ - Wednesday: 13:00 to 2:00
+ - Thursday: 23:00 to 12:00
+ - Friday: 11:00 to 23:00
+ - Saturday: 8:00 to 14:00
+ - Sunday: N/A to N/A
+
