@@ -5,3 +5,4 @@ first last - 9-5
 9-5  - 2024-05-03 23:31:07.667259
 Mikhail  Grigoryan - Monday: 1 AM - Tuesday: 1 AM - Wednesday: 2 AM - Thursday: 3 AM - Friday: 5 AM - Saturday: 6 AM - Sunday: 9 AM
 Mikhail TEst - Monday: 11 AM to 12 AM - Tuesday: 8 AM to 9 AM - Wednesday: 9 AM to 12 AM - Thursday: 4 AM to 8 AM - Friday: Not scheduled to Not scheduled - Saturday: Not scheduled to Not scheduled - Sunday: Not scheduled to Not scheduled
+Mikhail Test - Monday: 12 AM to 8 PM - Tuesday: 4 PM to 12 AM - Wednesday: N/A to N/A - Thursday: N/A to N/A - Friday: N/A to N/A - Saturday: N/A to N/A - Sunday: N/A to N/A
