@@ -9,13 +9,15 @@ def home():
 @app.route('/submit_schedule', methods=['POST'])
 def submit_schedule():
     with open('schedules.txt', 'a') as file:
-        file.write(f"{request.form.get('fname', 'N/A')} {request.form.get('lname', 'N/A')}")
+        file.write(f"{request.form.get('fname', 'Not scheduled')} {request.form.get('lname', 'Not scheduled')}")
         for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]:
-            start_time = f"{request.form.get(f'start-{day}', 'N/A')} {request.form.get(f'ampm-start-{day}', '')}"
-            end_time = f"{request.form.get(f'end-{day}', 'N/A')} {request.form.get(f'ampm-end-{day}', '')}"
-            start_time = start_time.strip() if start_time.strip() != 'AM' and start_time.strip() != 'PM' else 'N/A'
-            end_time = end_time.strip() if end_time.strip() != 'AM' and end_time.strip() != 'PM' else 'N/A'
-            file.write(f" - {day}: {start_time} to {end_time}")
+            start = request.form.get(f'start-{day}', 'N/A')
+            end = request.form.get(f'end-{day}', 'N/A')
+            if start != 'N/A' and ':' not in start:
+                start += ':00'
+            if end != 'N/A' and ':' not in end:
+                end += ':00'
+            file.write(f" - {day}: {start} to {end}")
         file.write("\n")
     return 'Schedule submitted successfully!'
 
