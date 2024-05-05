@@ -8,8 +8,26 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h2>Thank you for submitting your schedule!</h2>
-        <p>Your schedule has been recorded, but you can still modify it if needed.</p>
+        <h2>Thank you, {{ data.fname }} {{ data.lname }}!</h2>
+        <p>Here is your submitted schedule. Please review it:</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for schedule in data.schedules %}
+                <tr>
+                    <td>{{ schedule.day }}</td>
+                    <td>{{ schedule.start }}</td>
+                    <td>{{ schedule.end }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         <div class="mb-3">
             <a href="/" class="btn btn-primary">Modify Schedule</a>
             <a href="/finalize" class="btn btn-success">Confirm Schedule</a>

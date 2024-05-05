@@ -1,6 +1,7 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, session, redirect, url_for
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key_here'  # Replace 'your_secret_key_here' with a real secret key
 
 @app.route('/')
 def home():
@@ -8,36 +9,51 @@ def home():
 
 @app.route('/submit_schedule', methods=['POST'])
 def submit_schedule():
-    with open('schedules.txt', 'a') as file:
-        file.write(f"{request.form.get('fname', 'Not scheduled')} {request.form.get('lname', 'Not scheduled')}")
-        for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]:
-            start = request.form.get(f'start-{day}', '').strip()
-            end = request.form.get(f'end-{day}', '').strip()
-            
-            # Check if start or end is completely empty or not provided
-            if not start and not end:
-                schedule = 'N/A'
-            else:
-                # Append ':00' if hour is provided without minutes
-                if start and ':' not in start:
-                    start += ':00'
-                elif not start:  # If start time is empty
-                    start = 'N/A'
-                
-                if end and ':' not in end:
-                    end += ':00'
-                elif not end:  # If end time is empty
-                    end = 'N/A'
-                
-                schedule = f"{start} to {end}"
-            
-            file.write(f" - {day}: {schedule}")
-        file.write("\n")
-    return render_template('confirmation.html')
+    # Collect data from the form
+    schedule_data = {
+        'fname': request.form.get('fname', 'Not provided'),
+        'lname': request.form.get('lname', 'Not provided'),
+        'schedules': []
+    }
+    days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
+    for day in days:
+        start = request.form.get(f'start-{day}', 'N/A')
+        end = request.form.get(f'end-{day}', 'N/A')
+        if start and ':' not in start:
+            start += ':00'
+        if not start:
+            start = 'N/A'
+        if end and ':' not in end:
+            end += ':00'
+        if not end:
+            end = 'N/A'
+        schedule_data['schedules'].append({
+            'day': day,
+            'start': start,
+            'end': end
+        })
+
+    # Store data in session
+    session['schedule_data'] = schedule_data
+    return render_template('confirmation.html', data=schedule_data)
 
 @app.route('/finalize')
 def finalize_schedule():
-    # Handle finalization logic here
-    return render_template('finalize.html', message="Your schedule has been confirmed.")
+    # Retrieve data from session
+    schedule_data = session.get('schedule_data', None)
+    if schedule_data:
+        with open('schedules.txt', 'a') as file:
+            file.write(f"{schedule_data['fname']} {schedule_data['lname']}\n")
+            for schedule in schedule_data['schedules']:
+                file.write(f" - {schedule['day']}: {schedule['start']} to {schedule['end']}\n")
+            file.write("\n")
+        message = "Your schedule has been confirmed."
+        # Clear the session data after saving it
+        session.pop('schedule_data', None)
+    else:
+        message = "No schedule data found to save."
+    return render_template('finalize.html', message=message)
+
 if __name__ == "__main__":
     app.run(debug=True)
